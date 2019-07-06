@@ -6,9 +6,21 @@
             "Code Blocks","Statements", "Groups", "A" ],
             ["In Javascript, we use this to stores data", "Object", "Variables", "Element", "B"],
             ["Which is not consider a Data Type?", "String", "Boolean", "Symbols", "C"],
-            ["The process of joining together two or more strings to create one new string", "Concatenation", "Joining", "Connecting", "A"]
+            ["The process of joining together two or more strings to create one new string", "Concatenation", "Joining", "Connecting", "A"],
+            ["The acronym CSS means what?", "Cool Style Sheets", "Cascading Style Sheets", "Colored Style Sheets", "B"],
+            ["Which is not consider to be a Data Type?","String", "Boolean", "Symbols", "C"],
+            ["This allow programmers to create a single value from one or more values.", "Operators", "Expressions", "Strings", "A"],
+            ["This allow us to group a series of statements together to perform a spacific task", "Object", "Variable", "Function", "C"],
+            ["Pieces of information passed to a function are known as what?", "Data", "Parameters", "Values", "B"],
+            ["The response we expect the function to provide is known as what?", "Return Function", "Answers", "Return Info", "A"],
+            ["A Function with no name is called what?", "No Name Function", "Undefined Function", "Anonymous Function", "C"],
+            ["When a Variable is created inside a function using the var keyword, it is called what?", "In-line Variable", "Local Variable", "Function Variable", "B"]
+            
         ];
-       
+        
+
+
+
         
         //to render our questions to the page
         function randerQuestion(){
@@ -20,18 +32,28 @@
                 correct = 0;
                 return false;
             }
-            // document.getElementById("test_status").innerHTML = "question " + (pos + 1) +" of "+ questions.length;
+            document.getElementById("test_status").innerHTML = "question " + (pos + 1) +" of "+ questions.length;
             //to add data into our variable
-            var sec = 15;
-            var time = setInterval(playerTime, 1000);
-            function playerTime() {
+            var sec = 10;
+            var time = setInterval(run, 1000);
+            function run() {
                 document.getElementById("timer").innerHTML = sec;
                 sec--;
-                if(sec == -1) {
-                    clearInterval(time);
-                    pos++;
-                    randerQuestion();
-                }
+                if(sec == 0) {
+                stop();
+                run();
+                }   
+                  
+            }
+            // function run() {
+            // clearInterval(time);
+            // time = setInterval(decrement, 100000);
+            // }
+
+            // The stop function
+            function stop() {
+            clearInterval(time);
+        
             }
             question = questions[pos][0];
             chA = questions[pos][1];
@@ -44,7 +66,7 @@
             test.innerHTML += "<input type='radio' name='choices' value='B'> " + chB + "<br>";
             test.innerHTML += "<input type='radio' name='choices' value='C'> " + chC + "<br><br>";
 
-            test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
+            test.innerHTML += "<button onclick='checkAnswer()';>Submit Answer</button>";
 
         }
         function checkAnswer(){
@@ -52,6 +74,7 @@
             for(var i=0; i < choices.length; i++) {
                 if(choices[i].checked) {
                     choice = choices[i].value;
+                    stop();
                     
                 }
                 console.log(checkAnswer);
@@ -61,10 +84,13 @@
                 // correct = document.getElementById("correct");
                
             }
-
+            
             // go to the next question
             pos++;
             randerQuestion();
+            run();
+
         }
         window.addEventListener("load", randerQuestion, false);
 
+        
